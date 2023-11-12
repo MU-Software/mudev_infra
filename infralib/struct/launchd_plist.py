@@ -158,7 +158,7 @@ class Service(ServiceModel):
         target_reverse_domain_name: str = ".".join([*reversed(domain_name.split(".")), job_name])
         self.label = target_reverse_domain_name
 
-        plist_path = (result_dir / f"{target_reverse_domain_name}.plist")
+        plist_path = result_dir / f"{target_reverse_domain_name}.plist"
         plist_path.unlink(missing_ok=True)
         plist_path.write_bytes(
             plistlib.dumps(

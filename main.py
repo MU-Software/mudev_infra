@@ -51,11 +51,9 @@ def main():
             else:
                 result_files = [config_struct.build_file(template_file, build_dir, env_vars)]
 
-            if t == 'service':
+            if t == "service":
                 for result_file in result_files:
-                    launchd_plist_struct.Service.model_validate(
-                        yaml.safe_load(result_file.read_text())
-                    ).build(
+                    launchd_plist_struct.Service.model_validate(yaml.safe_load(result_file.read_text())).build(
                         build_dir,
                         result_file.stem,
                         env_vars["DOMAIN_NAME"],
