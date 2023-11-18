@@ -1,0 +1,8 @@
+*.enc diff=sopsdiffer
+encrypted/* diff=sopsdiffer
+
+$ git config diff.sopsdiffer.textconv "sops -d"
+
+$ grep -A 1 sopsdiffer .git/config
+[diff "sopsdiffer"]
+      textconv = "sops -d"

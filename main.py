@@ -1,12 +1,64 @@
+import enum
 import functools
 import pathlib
 import shutil
+import subprocess
 
 import dotenv
 import jinja2
+import typer
 import yaml
 
 import infralib.struct.config as config_struct
+
+app = typer.Typer()
+
+
+class SOPSmode(enum.StrEnum):
+    ENCRYPT = enum.auto()
+    DECRYPT = enum.auto()
+
+    @property
+    def flag(self) -> str:
+        return f"-{self.name.lower()[0]}"
+
+
+def resolve_sops_bin_path() -> pathlib.Path | None:
+    result = shutil.which("sops")
+    return pathlib.Path(result) if result else None
+
+
+def sops_exec(mode: SOPSmode, in_path: pathlib.Path, sops_bin_path: pathlib.Path) -> str:
+    return subprocess.run(
+        [sops_bin_path.resolve().as_posix(), mode.flag, in_path.resolve().as_posix()],
+        capture_output=True,
+        check=True,
+        text=True,
+    ).stdout
+
+
+@app.command()
+def sops(mode: str, in_dir: pathlib.Path, out_dir: pathlib.Path) -> None:
+    if not (in_dir := in_dir.resolve()).exists():
+        raise FileNotFoundError(f"{in_dir} is not found")
+
+    if (out_dir := out_dir.resolve()).exists():
+        shutil.rmtree(out_dir)
+
+    if not (sops_bin_path := resolve_sops_bin_path()):
+        raise FileNotFoundError("sops is not found")
+
+    resolved_mode: SOPSmode = SOPSmode(mode)
+
+    for f in in_dir.rglob("*"):
+        if not f.is_file():
+            continue
+
+        output_path = (out_dir / f.relative_to(in_dir))
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(sops_exec(in_path=f, mode=resolved_mode, sops_bin_path=sops_bin_path))
+
+    return None
 
 
 @functools.cache
@@ -21,19 +73,19 @@ def get_config_data(config_dir: pathlib.Path) -> config_struct.Config:
     return config_struct.Config.model_validate(yaml.safe_load(config_string))
 
 
-def main(base_dir: pathlib.Path):
-    config_dir = base_dir / "config"
-    template_dir = base_dir / "template"
-    build_result_dir = base_dir / "build"
+@app.command()
+def build(in_dir: pathlib.Path, out_dir: pathlib.Path):
+    config_dir = in_dir / "config"
+    template_dir = in_dir / "template"
 
-    if build_result_dir.exists():
-        shutil.rmtree(build_result_dir)
-    build_result_dir.mkdir(parents=True, exist_ok=True)
+    if out_dir.exists():
+        shutil.rmtree(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
 
     target: list[str] = ["service", "dotenv"]
     for t in target:
         template_dir = template_dir / t
-        build_dir = build_result_dir / t
+        build_dir = out_dir / t
         build_dir.mkdir(parents=True, exist_ok=True)
 
         env_vars = get_dotenv_data(config_dir)
@@ -51,13 +103,4 @@ def main(base_dir: pathlib.Path):
 
 
 if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--base-dir", required=True)
-    args = parser.parse_args()
-
-    if not (args.base_dir and (base_dir := pathlib.Path(args.base_dir)).exists()):
-        raise FileNotFoundError(f"base_dir not found: '{args.base_dir}'")
-
-    main(base_dir=base_dir.resolve())
+    app()

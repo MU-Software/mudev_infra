@@ -1,0 +1,8 @@
+creation_rules:
+  - path_regex: "^*.(json|yaml|env)$"
+    # order:
+    #  - MacBookPro18,1 (A202207038-02)
+    #  - Mac14,13 (이준영의 Mac Studio)
+    age: >-
+      age1nyf66nrycpqa0fv4q5p0r78jzh4gdxnkp58vl9rc442lutec64gsg3ahd5,
+      age1q43cez33sf3s4e5fpq0hpj8k6ya9uveefumtq9gv4uxuw7hgt5uq9avfym
