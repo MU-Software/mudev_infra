@@ -7,7 +7,6 @@ import jinja2
 import yaml
 
 import infralib.struct.config as config_struct
-import infralib.struct.launchd_plist as launchd_plist_struct
 
 
 @functools.cache

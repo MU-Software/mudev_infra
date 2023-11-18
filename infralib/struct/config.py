@@ -14,7 +14,6 @@ def build_file(
     env_vars: dict[str, str],
     link_to: list[pathlib.Path] | None = None,
 ) -> pathlib.Path:
-    env_vars = env_vars or {}
     link_to = link_to or []
 
     template: jinja2.Template = jinja2.Template(template_path.read_text())
