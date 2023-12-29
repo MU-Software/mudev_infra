@@ -121,10 +121,8 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
 .venv
 .envrc
-*.env
 *.venv
 *.envrc
 env/
@@ -160,7 +158,6 @@ dmypy.json
 # Virtualenv
 .Python
 [Bb]in
-[Ii]nclude
 [Ll]ib
 [Ll]ib64
 [Ll]ocal
