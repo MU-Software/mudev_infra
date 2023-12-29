@@ -32,33 +32,39 @@ repos:
       - --max-line-length=120
       - --max-complexity=18
 -   repo: https://github.com/psf/black
-    rev: 23.11.0
+    rev: 23.12.0
     hooks:
     - id: black
       language_version: python3.11
       args:
         - --line-length=120
 -   repo: https://github.com/PyCQA/bandit
-    rev: '1.7.5'
+    rev: '1.7.6'
     hooks:
     - id: bandit
 -   repo: https://github.com/PyCQA/isort
-    rev: '5.12.0'
+    rev: '5.13.2'
     hooks:
       - id: isort
 -   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: 'v1.7.0'
+    rev: 'v1.8.0'
     hooks:
       - id: mypy
-        args: [--no-strict-optional, --ignore-missing-imports]
+        args:
+          - --no-strict-optional
+          - --ignore-missing-imports
+          - --check-untyped-defs
+          - --disallow-untyped-defs
+          - --disallow-incomplete-defs
+          - --disallow-untyped-calls
         additional_dependencies:
           - tokenize-rt==3.2.0
+          - types-redis
           - types-PyYAML
+          - types-toml
+          - types-aiofiles
+          - types-requests
 -   repo: https://github.com/dosisod/refurb
-    rev: v1.24.0
+    rev: v1.25.0
     hooks:
       - id: refurb
--   repo: https://github.com/yuvipanda/pre-commit-hook-ensure-sops
-    rev: v1.0
-    hooks:
-      - id: sops-encryption
