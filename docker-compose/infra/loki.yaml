@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  mulab-loki:
+    extends:
+      file: ../include/logger.yaml
+      service: json-log-driver
+
+    image: grafana/loki:latest
+    platform: linux/arm64
+    restart: unless-stopped
+    command: -config.file=/etc/loki/local-config.yaml
+    ports:
+    - 3100:3100
+    volumes:
+    - ../file/loki/local-config.yaml:/etc/loki/local-configz.yaml:ro
+    networks:
+    - grafana

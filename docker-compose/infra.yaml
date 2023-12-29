@@ -1,0 +1,7 @@
+version: '3.9'
+
+include:
+  - ./infra/loki.yaml
+  - ./infra/docker-prometheus.yaml
+  - ./infra/grafana.yaml
+  # - ./infra/promtail.yaml

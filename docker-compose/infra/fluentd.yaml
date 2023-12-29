@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  mulab-fluentd:
+    extends:
+      file: ../include/logger.yaml
+      service: loki-log-driver
+
+    image: fluent/fluentd:v1.16.2-debian-1.1
+    platform: linux/arm64
+    restart: unless-stopped
+    volumes:
+    - ../files/fluentd.conf:/fluentd/etc/fluentd.conf:ro
+    - ../files/fluentd:/fluentd/etc/conf.d:ro
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "8m"
+        max-file: "10"

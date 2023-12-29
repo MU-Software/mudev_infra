@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  mulab-redis:
+    extends:
+      file: ../include/logger.yaml
+      service: loki-log-driver
+
+    container_name: mulab-redis
+    image: redis:latest
+    platform: linux/arm64
+    restart: unless-stopped
+    environment:
+      TZ: Etc/UTC
+      PGTZ: Etc/UTC
+    command: >
+      --requirepass ${REDIS_PASSWORD:?Please create .env file on project root and set REDIS_PASSWORD}
+    volumes: # TODO: SHOULD CHECK
+      - redis-data:/data # TODO: SHOULD CHECK
+    healthcheck:
+      # FROM https://stackoverflow.com/a/71504657/5702135
+      test:
+        - "CMD-SHELL"
+        - "redis-cli"
+        - "-a"
+        - "${REDIS_PASSWORD}"
+        - "ping"
+        - "|"
+        - "grep"
+        - "PONG"
+      interval: 1s
+      timeout: 3s
+      retries: 5

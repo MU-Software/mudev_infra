@@ -1,0 +1,9 @@
+version: '3.9'
+
+volumes:
+  log-volume:
+    driver: local
+
+  grafana-data:
+  postgres-data:
+  redis-data:

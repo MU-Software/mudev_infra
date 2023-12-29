@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  mulab-postgres:
+    extends:
+      file: ../include/logger.yaml
+      service: loki-log-driver
+
+    container_name: mulab-postgres
+    image: postgres:15.4
+    platform: linux/arm64
+    restart: unless-stopped
+    environment:
+      TZ: Etc/UTC
+      PGTZ: Etc/UTC
+      POSTGRES_DB: ${POSTGRES_DATABASE:?Please create .env file on project root and set DB_NAME}
+      POSTGRES_USER: ${POSTGRES_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Please create .env file on project root and set DB_PASSWORD}
+    healthcheck:
+      test: pg_isready -U ${POSTGRES_USERNAME:-postgres}
+    volumes:
+    - postgres-data:/var/lib/postgresql/data

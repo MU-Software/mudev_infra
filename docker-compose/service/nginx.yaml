@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  mulab-nginx:
+    extends:
+      file: ../include/logger.yaml
+      service: loki-log-driver
+
+    container_name: mulab-nginx
+    image: nginx:latest
+    platform: linux/arm64
+    restart: unless-stopped
+    ports:
+      - 80:8080
+      - 443:8443
+    volumes:
+      - ../file/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ../file/nginx/conf.d/:/etc/nginx/conf.d/

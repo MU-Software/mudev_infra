@@ -1,0 +1,28 @@
+services:
+  json-log-driver:
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "8m"
+        max-file: "10"
+
+  loki-log-driver:
+    logging:
+      driver: loki
+      options:
+        keep-file: true
+        loki-retries: 2
+        loki-max-backoff: 1500ms
+        loki-timeout: 5s
+        loki-url: ""
+        loki-pipeline-stages: |
+          - regex:
+              expression: '(level|lvl|severity)=(?P<level>\w+)'
+          - labels:
+              level:
+        loki-relabel-config: |
+          - action: labelmap
+            regex: swarm_stack
+            replacement: namespace
+          - action: labelmap
+            regex: swarm_(service)
