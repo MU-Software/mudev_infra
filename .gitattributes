@@ -1,5 +1,2 @@
 *.enc diff=sopsdiffer
 encrypted/* diff=sopsdiffer
-
-[diff "sopsdiffer"]
-      textconv = "sops -d"
