@@ -1,0 +1,3 @@
+[submodule "mudev_backend"]
+	path = mudev_backend
+	url = github.com-musoftware:MU-Software/mudev_backend.git
