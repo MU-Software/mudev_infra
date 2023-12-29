@@ -12,23 +12,30 @@ def build_file(
     template_path: pathlib.Path,
     result_dir: pathlib.Path,
     env_vars: dict[str, str],
+    *,
     link_to: list[pathlib.Path] | None = None,
-) -> pathlib.Path:
+    ignore_error: bool = False,
+) -> pathlib.Path | None:
     link_to = link_to or []
 
-    template: jinja2.Template = jinja2.Template(template_path.read_text())
-    template_string: str = template.render(env_vars)
+    try:
+        template: jinja2.Template = jinja2.Template(template_path.read_text())
+        template_string: str = template.render(env_vars)
 
-    result_name: str = string.Template(template_path.stem).substitute(env_vars)
-    result_path: pathlib.Path = result_dir / f"{result_name}{template_path.suffix}"
-    result_path.write_text(template_string)
+        result_name: str = string.Template(template_path.stem).substitute(env_vars)
+        result_path: pathlib.Path = result_dir / f"{result_name}{template_path.suffix}"
+        result_path.write_text(template_string)
 
-    for link in link_to:
-        if (symlink_path := pathlib.Path(link)).exists():
-            symlink_path.unlink()
-        symlink_path.symlink_to(result_path)
+        for link in link_to:
+            if (symlink_path := pathlib.Path(link)).exists():
+                symlink_path.unlink()
+            symlink_path.symlink_to(result_path)
 
-    return result_path
+        return result_path
+    except Exception as e:
+        if ignore_error:
+            return None
+        raise e
 
 
 def build_service_file(
@@ -63,6 +70,7 @@ class ConfigDetailWithMatrix(ConfigDetail):
         template_path: pathlib.Path,
         result_dir: pathlib.Path,
         global_vars: dict[str, str] | None = None,
+        ignore_error: bool = False,
     ) -> list[pathlib.Path]:
         return [
             build_file(
@@ -70,6 +78,7 @@ class ConfigDetailWithMatrix(ConfigDetail):
                 result_dir,
                 {**matrix.variables, **self.variables, **(global_vars or {})},
                 matrix.linkTo + self.linkTo,
+                ignore_error,
             )
             for matrix in (self.matrix or [ConfigDetail()])
         ]
