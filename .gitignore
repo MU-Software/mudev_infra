@@ -20,6 +20,7 @@ parts/
 sdist/
 var/
 wheels/
+pip-wheel-metadata/
 share/python-wheels/
 *.egg-info/
 .installed.cfg
@@ -122,11 +123,21 @@ celerybeat.pid
 # Environments
 .env
 .venv
+.envrc
+*.env
+*.venv
+*.envrc
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
+env_collection/*
+# But except environment file creator
+!env_collection/env_creator.py
+!env_collection/dev.json
+!env_collection/minimal.json
+!env_collection/template
 
 # Spyder project settings
 .spyderproject
@@ -145,6 +156,49 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Virtualenv
+.Python
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+pyvenv.cfg
+.venv
+pip-selfcheck.json
+
+# VSCode
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# SSH key file for DockerFile git clone
+id_rsa
+
+# We won't commit OpenAPI document,
+# Instead, we'll create documents on live server
+docs/*
+
+# We don't want to commit service files
+*.service
+
+# Exclude temporary directories
+[Tt]mp
+
+# Execlude FROST's user-uploaded file directory
+user_content/
+
+# Execlude nohup output file
+nohup.out
+
+# Execlude backend SQLite DB file
+app/*.sqlite
+
 
 # pytype static type analyzer
 .pytype/
