@@ -2,7 +2,7 @@ import enum
 import functools
 import pathlib
 import shutil
-import subprocess
+import subprocess  # nosec: B404
 
 import dotenv
 import jinja2
@@ -29,7 +29,7 @@ def resolve_sops_bin_path() -> pathlib.Path | None:
 
 
 def sops_exec(mode: SOPSmode, in_path: pathlib.Path, sops_bin_path: pathlib.Path) -> str:
-    return subprocess.run(
+    return subprocess.run(  # nosec: B603
         [sops_bin_path.resolve().as_posix(), mode.flag, in_path.resolve().as_posix()],
         capture_output=True,
         check=True,
@@ -54,7 +54,7 @@ def sops(mode: str, in_dir: pathlib.Path, out_dir: pathlib.Path) -> None:
         if not f.is_file():
             continue
 
-        output_path = (out_dir / f.relative_to(in_dir))
+        output_path = out_dir / f.relative_to(in_dir)
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(sops_exec(in_path=f, mode=resolved_mode, sops_bin_path=sops_bin_path))
 
@@ -83,7 +83,7 @@ def build(
     out_dir: pathlib.Path,
     ignore_validation: bool = False,
     ignore_error: bool = False,
-):
+) -> None:
     config_dir = in_dir / "config"
     template_base_dir = in_dir / "template"
 
@@ -106,11 +106,10 @@ def build(
             if not template_file.is_file():
                 continue
 
-            # result_files: list[pathlib.Path]
             if target_config := config_collection.get(template_file.name):
-                target_config.build(template_file, build_dir, env_vars, ignore_error)
+                target_config.build(template_file, build_dir, global_vars=env_vars, ignore_error=ignore_error)
             else:
-                [config_struct.build_file(template_file, build_dir, env_vars, ignore_error=ignore_error)]
+                config_struct.build_file(template_file, build_dir, env_vars, ignore_error=ignore_error)
 
 
 if __name__ == "__main__":
