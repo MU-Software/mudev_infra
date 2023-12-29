@@ -67,16 +67,25 @@ def get_dotenv_data(config_dir: pathlib.Path) -> dict:
 
 
 @functools.cache
-def get_config_data(config_dir: pathlib.Path) -> config_struct.Config:
+def get_config_data(config_dir: pathlib.Path, ignore_validation: bool = False) -> config_struct.Config:
     config_template: jinja2.Template = jinja2.Template((config_dir / "config.yaml").read_text())
     config_string: str = config_template.render(get_dotenv_data(config_dir))
-    return config_struct.Config.model_validate(yaml.safe_load(config_string))
+    config_data = yaml.safe_load(config_string)
+
+    if ignore_validation:
+        return config_struct.Config().model_construct(config_data)
+    return config_struct.Config.model_validate(config_data)
 
 
 @app.command()
-def build(in_dir: pathlib.Path, out_dir: pathlib.Path):
+def build(
+    in_dir: pathlib.Path,
+    out_dir: pathlib.Path,
+    ignore_validation: bool = False,
+    ignore_error: bool = False,
+):
     config_dir = in_dir / "config"
-    template_dir = in_dir / "template"
+    template_base_dir = in_dir / "template"
 
     if out_dir.exists():
         shutil.rmtree(out_dir)
@@ -84,12 +93,14 @@ def build(in_dir: pathlib.Path, out_dir: pathlib.Path):
 
     target: list[str] = ["service", "dotenv"]
     for t in target:
-        template_dir = template_dir / t
+        template_dir = template_base_dir / t
         build_dir = out_dir / t
         build_dir.mkdir(parents=True, exist_ok=True)
 
         env_vars = get_dotenv_data(config_dir)
-        config_collection: dict[str, config_struct.ConfigDetailWithMatrix] = getattr(get_config_data(config_dir), t)
+        config_collection: dict[str, config_struct.ConfigDetailWithMatrix] = getattr(
+            get_config_data(config_dir, ignore_validation), t
+        )
 
         for template_file in template_dir.iterdir():
             if not template_file.is_file():
@@ -97,9 +108,9 @@ def build(in_dir: pathlib.Path, out_dir: pathlib.Path):
 
             # result_files: list[pathlib.Path]
             if target_config := config_collection.get(template_file.name):
-                target_config.build(template_file, build_dir, env_vars)
+                target_config.build(template_file, build_dir, env_vars, ignore_error)
             else:
-                [config_struct.build_file(template_file, build_dir, env_vars)]
+                [config_struct.build_file(template_file, build_dir, env_vars, ignore_error=ignore_error)]
 
 
 if __name__ == "__main__":
