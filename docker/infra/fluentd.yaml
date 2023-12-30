@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 
 services:
   mulab-fluentd:
@@ -10,10 +10,5 @@ services:
     platform: linux/arm64
     restart: unless-stopped
     volumes:
-    - ../files/fluentd.conf:/fluentd/etc/fluentd.conf:ro
-    - ../files/fluentd:/fluentd/etc/conf.d:ro
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "8m"
-        max-file: "10"
+      - ../files/fluentd.conf:/fluentd/etc/fluentd.conf:ro
+      - ../files/fluentd:/fluentd/etc/conf.d:ro

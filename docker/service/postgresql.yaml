@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 
 services:
   mulab-postgres:
@@ -10,8 +10,8 @@ services:
     image: postgres:15.4
     platform: linux/arm64
     restart: unless-stopped
-    ports:
-      - 127.0.0.1:${POSTGRES_PORT:?Please create .env file on project root and set POSTGRES_PORT}:5432
+    expose:
+      - 5432
     environment:
       TZ: Etc/UTC
       PGTZ: Etc/UTC
@@ -21,4 +21,8 @@ services:
     healthcheck:
       test: pg_isready -U ${POSTGRES_USERNAME:-postgres}
     volumes:
-    - postgres-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      web-service:
+        aliases:
+          - mulab-postgres

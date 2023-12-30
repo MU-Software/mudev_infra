@@ -14,7 +14,7 @@ services:
         loki-retries: 2
         loki-max-backoff: 1500ms
         loki-timeout: 5s
-        loki-url: ""
+        loki-url: http://mulab-loki:3000
         loki-pipeline-stages: |
           - regex:
               expression: '(level|lvl|severity)=(?P<level>\w+)'
@@ -26,3 +26,7 @@ services:
             replacement: namespace
           - action: labelmap
             regex: swarm_(service)
+    links:
+      - mulab-loki:mulab-loki
+    networks:
+      grafana:

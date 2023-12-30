@@ -1,2 +1,4 @@
 networks:
+  reverse-proxy:
   grafana:
+  web-service:

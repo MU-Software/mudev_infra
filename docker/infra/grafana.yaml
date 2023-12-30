@@ -1,8 +1,8 @@
-version: '3.9'
+version: "3.9"
 
 include:
-  - ./loki.yaml
-  - ./docker-prometheus.yaml
+  - path: ./loki.yaml
+  - path: ./docker-prometheus.yaml
 
 services:
   mulab-grafana:
@@ -14,18 +14,24 @@ services:
     platform: linux/arm64
     restart: unless-stopped
     ports:
-    - 3000:3000
+      - 3000:3000
     volumes:
-    - ../file/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
-    - ../file/grafana/provisioning:/etc/grafana/provisioning:ro
-    - grafana-data:/var/lib/grafana
-    networks:
-    - grafana
+      - ../file/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
+      - ../file/grafana/provisioning:/etc/grafana/provisioning:ro
+      - grafana-data:/var/lib/grafana
+    links:
+      - mulab-loki:mulab-loki
+      - mulab-prometheus:mulab-prometheus
     depends_on:
-    - mulab-loki
-    - mulab-prometheus
+      - mulab-loki
+      - mulab-prometheus
     environment:
       GF_PATHS_PROVISIONING: /etc/grafana/provisioning
       GF_AUTH_ANONYMOUS_ENABLED: true
       GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
       GF_INSTALL_PLUGINS: grafana-clock-panel
+    networks:
+      grafana:
+      reverse-proxy:
+        aliases:
+          - mulab-grafana
