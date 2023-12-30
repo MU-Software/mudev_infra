@@ -1,0 +1,17 @@
+services:
+  snowfall-image:
+    extends:  # Logging definition
+      file: ../include/logger.yaml
+      service: loki-log-driver
+    build:  # Docker Image definition
+      context: ../../mudev_backend
+      dockerfile: ../../mudev_backend/infra/Dockerfile
+      target: runtime
+    platform: linux/arm64
+    restart: unless-stopped
+    working_dir: /
+    depends_on:
+      mulab-postgres:
+        condition: service_healthy
+      mulab-redis:
+        condition: service_healthy

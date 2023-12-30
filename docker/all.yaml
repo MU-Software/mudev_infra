@@ -1,0 +1,7 @@
+version: '3.9'
+
+include:
+  - ./definition.yaml
+  - ./infra.yaml
+  - ./service.yaml
+  - ./application.yaml

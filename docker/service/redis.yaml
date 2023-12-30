@@ -13,6 +13,8 @@ services:
     environment:
       TZ: Etc/UTC
       PGTZ: Etc/UTC
+    ports:
+      - 127.0.0.1:${REDIS_PORT?Please create .env file on project root and set REDIS_PORT}:6379
     command: >
       --requirepass ${REDIS_PASSWORD:?Please create .env file on project root and set REDIS_PASSWORD}
     volumes: # TODO: SHOULD CHECK

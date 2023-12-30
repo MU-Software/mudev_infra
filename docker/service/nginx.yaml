@@ -11,8 +11,7 @@ services:
     platform: linux/arm64
     restart: unless-stopped
     ports:
-      - 80:8080
-      - 443:8443
+      - 127.0.0.1:${NGINX_PORT:?Please create .env file on project root and set NGINX_PORT}:80
     volumes:
       - ../file/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ../file/nginx/conf.d/:/etc/nginx/conf.d/
