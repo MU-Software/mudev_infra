@@ -28,7 +28,7 @@ def build_file(
 
         for link in link_to:
             link.unlink(missing_ok=True)
-            link.symlink_to(result_path)
+            link.symlink_to(result_path.resolve().absolute())
 
         return result_path
     except Exception as e:
@@ -53,7 +53,7 @@ def build_service_file(
 
         for link in link_to:
             link.unlink(missing_ok=True)
-            link.symlink_to(result_plist)
+            link.symlink_to(result_plist.resolve().absolute())
 
         return result_file
     except Exception as e:
