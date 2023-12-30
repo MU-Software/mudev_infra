@@ -49,11 +49,11 @@ def build_service_file(
         result_file = build_file(template_path, result_dir, env_vars, link_to=link_to, ignore_error=ignore_error)
         result_data = yaml.safe_load(result_file.read_text())
         model_data = launchd_plist_struct.Service.model_validate(result_data)
-        model_data.build(result_dir, result_file.stem, env_vars["DOMAIN_NAME"])
+        result_plist = model_data.build(result_dir, result_file.stem, env_vars["DOMAIN_NAME"])
 
         for link in link_to:
             link.unlink(missing_ok=True)
-            link.symlink_to(result_file)
+            link.symlink_to(result_plist)
 
         return result_file
     except Exception as e:
