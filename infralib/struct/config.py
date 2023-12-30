@@ -27,9 +27,8 @@ def build_file(
         result_path.write_text(template_string)
 
         for link in link_to:
-            if (symlink_path := pathlib.Path(link)).exists():
-                symlink_path.unlink()
-            symlink_path.symlink_to(result_path)
+            link.unlink(missing_ok=True)
+            link.symlink_to(result_path)
 
         return result_path
     except Exception as e:
@@ -53,9 +52,8 @@ def build_service_file(
         model_data.build(result_dir, result_file.stem, env_vars["DOMAIN_NAME"])
 
         for link in link_to:
-            if (symlink_path := pathlib.Path(link)).exists():
-                symlink_path.unlink()
-            symlink_path.symlink_to(result_file)
+            link.unlink(missing_ok=True)
+            link.symlink_to(result_file)
 
         return result_file
     except Exception as e:
