@@ -20,7 +20,4 @@ services:
       - mulab-loki:mulab-loki
       - mulab-api:mulab-api
     networks:
-      reverse-proxy:
-      grafana:
-        aliases:
-          - mulab-nginx
+      reverse-proxy:  # For accessing to reverse proxy targets

@@ -34,6 +34,6 @@ services:
       timeout: 3s
       retries: 5
     networks:
-      web-service:
+      web-service:  # For allowing access from mulab-api
         aliases:
           - mulab-redis

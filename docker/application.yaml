@@ -33,6 +33,14 @@ services:
       timeout: 6s
       retries: 5
     volumes: []
+    links:
+      - mulab-postgres:mulab-postgres
+      - mulab-redis:mulab-redis
+    networks:
+      reverse-proxy:  # For reverse-proxying
+        aliases:
+          - mulab-api
+      web-service:  # For accessing to PostgreSQL and Redis
 
   # mulab-celery-beat:
   #   container_name: mulab-celery-beat

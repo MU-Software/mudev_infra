@@ -10,7 +10,7 @@ services:
     - 3100
     volumes:
     - ../file/promtail/config.yml:/etc/promtail/config.yml:ro
+    links:
+      - mulab-loki:mulab-loki
     networks:
-      grafana:
-        aliases:
-          - mulab-promtail
+      grafana:  # For accessing to loki to send log

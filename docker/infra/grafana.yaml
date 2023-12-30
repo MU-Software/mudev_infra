@@ -17,7 +17,7 @@ services:
       - 3000:3000
     volumes:
       - ../file/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
-      - ../file/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ../file/grafana/provisioning:/etc/grafana/provisioning:rw
       - grafana-data:/var/lib/grafana
     links:
       - mulab-loki:mulab-loki
@@ -25,13 +25,18 @@ services:
     depends_on:
       - mulab-loki
       - mulab-prometheus
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000/api/health || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     environment:
       GF_PATHS_PROVISIONING: /etc/grafana/provisioning
       GF_AUTH_ANONYMOUS_ENABLED: true
       GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
       GF_INSTALL_PLUGINS: grafana-clock-panel
     networks:
-      grafana:
-      reverse-proxy:
+      reverse-proxy:  # For reverse-proxying on NGINX
         aliases:
           - mulab-grafana
+      grafana:  # For accessing loki and prometheus
