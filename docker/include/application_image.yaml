@@ -5,7 +5,7 @@ services:
       service: loki-log-driver
     build:  # Docker Image definition
       context: ../../mudev_backend
-      dockerfile: ../../mudev_backend/infra/Dockerfile
+      dockerfile: ../mudev_backend/infra/Dockerfile
       target: runtime
     platform: linux/arm64
     restart: unless-stopped
