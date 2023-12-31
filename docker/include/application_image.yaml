@@ -9,6 +9,8 @@ services:
       target: runtime
     platform: linux/arm64
     restart: unless-stopped
+    volumes:
+      - /Volumes/storageB:/user_content
     working_dir: /
     depends_on:
       mulab-postgres:
