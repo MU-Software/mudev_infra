@@ -1,0 +1,18 @@
+apiVersion: 1
+
+datasources:
+  - name: MULab-PostgreSQL
+    type: postgres
+    url: mulab-postgres:5432
+    access: proxy
+    database: mulab-mudev-backend
+    user: mulab-readonly
+    secureJsonData:
+      password: "grafana/123"
+    jsonData:
+      sslmode: "disable"
+      maxOpenConns: 0
+      maxIdleConns: 2
+      connMaxLifetime: 14400
+      postgresVersion: 903
+      timescaledb: false
