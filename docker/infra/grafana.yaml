@@ -13,8 +13,8 @@ services:
     image: grafana/grafana:latest
     platform: linux/arm64
     restart: unless-stopped
-    ports:
-      - 3000:3000
+    expose:
+      - 3000
     volumes:
       - ../file/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
       - ../file/grafana/provisioning:/etc/grafana/provisioning:ro
