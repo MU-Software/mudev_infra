@@ -18,6 +18,7 @@ services:
       timeout: 5s
       retries: 5
     volumes:
+      - loki-data:/loki
       - ../file/loki/local-config.yaml:/etc/loki/local-config.yaml:ro
     networks:
       reverse-proxy:  # For reverse-proxying on NGINX

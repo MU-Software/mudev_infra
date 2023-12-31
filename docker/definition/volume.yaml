@@ -3,7 +3,8 @@ version: '3.9'
 volumes:
   log-volume:
     driver: local
-
+  loki-data:
+  prometheus-data:
   grafana-data:
   postgres-data:
   redis-data:
