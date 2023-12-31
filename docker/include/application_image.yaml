@@ -15,3 +15,5 @@ services:
         condition: service_healthy
       mulab-redis:
         condition: service_healthy
+      mulab-loki:
+        condition: service_healthy

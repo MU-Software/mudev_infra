@@ -34,6 +34,9 @@ services:
       timeout: 3s
       retries: 5
     networks:
+      grafana:  # For grafana monitoring
+        aliases:
+          - mulab-redis
       web-service:  # For allowing access from mulab-api
         aliases:
           - mulab-redis

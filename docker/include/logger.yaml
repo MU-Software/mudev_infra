@@ -26,3 +26,6 @@ services:
             replacement: namespace
           - action: labelmap
             regex: swarm_(service)
+    depends_on:
+      mulab-loki:  # Loki must be started before services for log driver.
+        condition: service_healthy
