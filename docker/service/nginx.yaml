@@ -19,5 +19,6 @@ services:
       - mulab-grafana:mulab-grafana
       - mulab-loki:mulab-loki
       - mulab-api:mulab-api
+      - mulab-celery-flower:mulab-celery-flower
     networks:
       reverse-proxy:  # For accessing to reverse proxy targets

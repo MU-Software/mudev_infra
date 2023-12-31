@@ -40,44 +40,39 @@ services:
       reverse-proxy:  # For reverse-proxying
         aliases:
           - mulab-api
-      web-service:  # For accessing to PostgreSQL and Redis
+      web-service:  # For accessing PostgreSQL and Redis
 
-  # mulab-celery-beat:
-  #   container_name: mulab-celery-beat
-  #   extends:
-  #     file: ./include/application_image.yaml
-  #     service: snowfall-image
-  #   env_file:
-  #     - ../build/dotenv/mudev_backend.env
-  #   command:
-  #     - python3.11
-  #     - -m
-  #     - app.celery_task
-  #     - beat
-  #   ports:
-  #     - 127.0.0.1:28001:28001
-  #   # healthcheck:
-  #   #   # test: ["CMD-SHELL", "celery", "inspect", "ping", "-A", "app.worker"]
-  #   #   interval: 10s
-  #   #   timeout: 6s
-  #   #   retries: 5
+  mulab-celery-beat:
+    container_name: mulab-celery-beat
+    extends:
+      file: ./include/application_image.yaml
+      service: snowfall-image
+    env_file:
+      - ../build/dotenv/mudev_backend.env
+    command:
+      - python3.11
+      - -m
+      - app.celery_task
+      - beat
+    networks:
+      web-service:  # For accessing PostgreSQL and Redis
 
-  # mulab-celery-flower:
-  #   container_name: mulab-celery-flower
-  #   extends:
-  #     file: ./include/application_image.yaml
-  #     service: snowfall-image
-  #   env_file:
-  #     - ../build/dotenv/mudev_backend.env
-  #   command:
-  #     - python3.11
-  #     - -m
-  #     - app.celery_task
-  #     - flower
-  #   ports:
-  #     - 127.0.0.1:28002:28002
-  #   # healthcheck:
-  #   #   # test: ["CMD-SHELL", "celery", "inspect", "ping", "-A", "app.worker"]
-  #   #   interval: 10s
-  #   #   timeout: 6s
-  #   #   retries: 5
+  mulab-celery-flower:
+    container_name: mulab-celery-flower
+    extends:
+      file: ./include/application_image.yaml
+      service: snowfall-image
+    env_file:
+      - ../build/dotenv/mudev_backend.env
+    command:
+      - python3.11
+      - -m
+      - app.celery_task
+      - flower
+    expose:
+      - 5555
+    networks:
+      reverse-proxy:  # For reverse-proxying
+        aliases:
+          - mulab-celery-flower
+      web-service:  # For accessing PostgreSQL and Redis
