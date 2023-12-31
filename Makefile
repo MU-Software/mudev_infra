@@ -9,7 +9,7 @@ guard-%:
 backend-update:
 	@git stash --include-untracked
 	@git submodule foreach git pull
-	@(git commit -m "Update submodule" && git push || true) && git stash pop
+	@(git add mudev_backend && git commit -m "Update submodule" && git push || true) && git stash pop
 
 # SOPS Encryption
 sops-encrypt:
