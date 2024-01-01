@@ -15,6 +15,7 @@ services:
     volumes:
       - ../file/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ../file/nginx/conf.d/:/etc/nginx/conf.d/
+      - ../file/nginx/variable/:/etc/nginx/variable/
     links:
       - mulab-grafana:mulab-grafana
       - mulab-loki:mulab-loki
