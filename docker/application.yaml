@@ -41,6 +41,21 @@ services:
           - mulab-api
       web-service:  # For accessing PostgreSQL and Redis
 
+  mulab-celery-worker:
+    container_name: mulab-celery-worker
+    extends:
+      file: ./include/application_image.yaml
+      service: snowfall-image
+    env_file:
+      - ../build/dotenv/mudev_backend.env
+    command:
+      - python3.11
+      - -m
+      - app.celery_task
+      - worker
+    networks:
+      web-service:  # For accessing PostgreSQL and Redis
+
   mulab-celery-beat:
     container_name: mulab-celery-beat
     extends:
