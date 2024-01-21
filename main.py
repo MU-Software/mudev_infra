@@ -91,6 +91,13 @@ def build(
         shutil.rmtree(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    if (secret_data_file := template_base_dir / "secret" / "secret.yaml").exists():
+        (secret_out_dir := out_dir / "secret").mkdir(parents=True, exist_ok=True)
+        secret_data: list[dict[str, str]] = yaml.safe_load(secret_data_file.read_text())
+        for data in secret_data:
+            secret_out_path = secret_out_dir / data["filename"]
+            secret_out_path.write_text(data["value"])
+
     target: list[str] = ["service", "dotenv"]
     for t in target:
         template_dir = template_base_dir / t
