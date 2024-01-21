@@ -17,3 +17,6 @@ services:
         condition: service_healthy
       mulab-loki:
         condition: service_healthy
+    secrets:
+      - host_username
+      - host_id_rsa
