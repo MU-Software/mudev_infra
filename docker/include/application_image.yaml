@@ -3,10 +3,7 @@ services:
     extends:  # Logging definition
       file: ../include/logger.yaml
       service: loki-log-driver
-    build:  # Docker Image definition
-      context: ../../mudev_backend
-      dockerfile: ../mudev_backend/infra/Dockerfile
-      target: runtime
+    image: musoftware/mudev-backend:latest
     platform: linux/arm64
     restart: unless-stopped
     volumes:
