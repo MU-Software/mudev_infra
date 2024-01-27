@@ -27,12 +27,6 @@ env-build-with-error-ignored: sops-decrypt
 
 # Docker Compose
 docker-compose-up:
-	@docker compose -f ./docker/all.yaml \
-		--env-file ./build/dotenv/docker_compose.env \
-		--env-file ./build/dotenv/mudev_backend.env \
-		build \
-		--build-arg GIT_HASH=$(shell git rev-parse HEAD) \
-		--build-arg INVALIDATE_CACHE_DATE=$(shell date +%Y-%m-%d_%H:%M:%S)
 	@docker compose -f ./docker/all.yaml --env-file ./build/dotenv/docker_compose.env up -d --remove-orphans
 
 docker-compose-%:
