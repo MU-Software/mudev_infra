@@ -35,7 +35,7 @@ docker-compose-%:
 # Docker Stack
 docker-stack-deploy:
 	@docker compose -f ./docker/all.yaml --env-file ./build/dotenv/docker_compose.env config \
-	| docker stack deploy --compose-file - mulab
+	| docker stack deploy --with-registry-auth --compose-file - mulab
 
 docker-stack-ps:
 	@docker stack ps mulab
