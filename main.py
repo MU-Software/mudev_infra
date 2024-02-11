@@ -68,8 +68,7 @@ def get_dotenv_data(config_dir: pathlib.Path) -> dict:
 
 @functools.cache
 def get_config_data(config_dir: pathlib.Path, ignore_validation: bool = False) -> config_struct.Config:
-    config_template: jinja2.Template = jinja2.Template((config_dir / "config.yaml").read_text())
-    config_string: str = config_template.render(get_dotenv_data(config_dir))
+    config_string: str = jinja2.Template((config_dir / "config.yaml").read_text()).render(get_dotenv_data(config_dir))
     config_data = yaml.safe_load(config_string)
 
     if ignore_validation:
