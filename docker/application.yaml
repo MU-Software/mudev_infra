@@ -29,7 +29,7 @@ services:
         - --max-time
         - "5"
         - http://localhost:28000/livez
-      interval: 30s
+      interval: 60s
       timeout: 6s
       retries: 5
     links:
