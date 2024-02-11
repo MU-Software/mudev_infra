@@ -10,7 +10,7 @@ services:
     logging:
       driver: loki
       options:
-        keep-file: true
+        keep-file: "true"
         loki-retries: 2
         loki-max-backoff: 1500ms
         loki-timeout: 5s
