@@ -29,6 +29,13 @@ env-build-with-error-ignored: sops-decrypt
 docker-compose-up:
 	@docker compose -f ./docker/all.yaml --env-file ./build/dotenv/docker_compose.env up -d --remove-orphans
 
+docker-compose-upgrade:
+	@docker compose -f ./docker/all.yaml --env-file ./build/dotenv/docker_compose.env pull
+	@docker compose -f ./docker/all.yaml --env-file ./build/dotenv/docker_compose.env up -d --remove-orphans
+
+docker-compose-logs:
+	@docker compose -f ./docker/all.yaml --env-file ./build/dotenv/docker_compose.env logs -f
+
 docker-compose-%:
 	@docker compose -f ./docker/all.yaml --env-file ./build/dotenv/docker_compose.env $*
 
