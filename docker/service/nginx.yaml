@@ -3,7 +3,7 @@ version: '3.9'
 services:
   mulab-nginx:
     extends:
-      file: ../include/logger.yaml
+      file: ./include/logger.yaml
       service: loki-log-driver
 
     container_name: mulab-nginx

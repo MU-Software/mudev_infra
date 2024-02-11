@@ -3,7 +3,7 @@ version: "3.9"
 services:
   mulab-loki:
     extends:
-      file: ../include/logger.yaml
+      file: ./include/logger.yaml
       service: json-log-driver
 
     image: grafana/loki:latest
