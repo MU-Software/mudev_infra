@@ -7,7 +7,7 @@ services:
       service: loki-log-driver
 
     container_name: mulab-redis
-    image: redis:latest
+    image: redis:7.2.4-bookworm
     platform: linux/arm64
     restart: unless-stopped
     environment:

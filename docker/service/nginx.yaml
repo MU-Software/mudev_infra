@@ -7,7 +7,7 @@ services:
       service: loki-log-driver
 
     container_name: mulab-nginx
-    image: nginx:latest
+    image: nginx:1.25.3-bookworm
     platform: linux/arm64
     restart: unless-stopped
     ports:

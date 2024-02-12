@@ -7,7 +7,7 @@ services:
       service: loki-log-driver
 
     container_name: mulab-postgres
-    image: postgres:15.4
+    image: postgres:15.4-bookworm
     platform: linux/arm64
     restart: unless-stopped
     expose:
