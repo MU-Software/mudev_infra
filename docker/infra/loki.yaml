@@ -6,7 +6,7 @@ services:
       file: ./include/logger.yaml
       service: json-log-driver
 
-    image: grafana/loki:latest
+    image: grafana/loki:2.9.4
     platform: linux/arm64
     restart: unless-stopped
     command: -config.file=/etc/loki/local-config.yaml

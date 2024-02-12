@@ -6,7 +6,7 @@ services:
       file: ./include/logger.yaml
       service: loki-log-driver
 
-    image: prom/prometheus:latest
+    image: prom/prometheus:v2.49.1
     platform: linux/arm64/v8
     restart: unless-stopped
     command: >

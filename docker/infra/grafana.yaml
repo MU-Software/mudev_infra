@@ -10,7 +10,7 @@ services:
       file: ./include/logger.yaml
       service: loki-log-driver
 
-    image: grafana/grafana:latest
+    image: grafana/grafana:10.3.1
     platform: linux/arm64
     restart: unless-stopped
     expose:
