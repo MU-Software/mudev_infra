@@ -40,6 +40,13 @@ docker-compose-%:
 	@docker compose -f ./docker/all.yaml --env-file ./build/dotenv/docker_compose.env $*
 
 # Docker Stack
+docker-stack-images:
+	@docker compose -f ./docker/all.yaml --env-file ./.env.dummy config --resolve-image-digests \
+	  | grep image \
+	  | sed "s/image://" \
+	  | awk '!seen[$$0]++' \
+	  | awk '{$$1=$$1};1'
+
 docker-stack-deploy:
 	@docker compose -f ./docker/all.yaml --env-file ./build/dotenv/docker_compose.env config \
 	| docker stack deploy --with-registry-auth --compose-file - mulab
