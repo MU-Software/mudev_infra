@@ -10,7 +10,9 @@ services:
       - ../build/dotenv/mudev_backend.env
 
     ports:
-      - ${HOST}:${PORT}:${PORT}
+      - mode: host
+        target: ${PORT}
+        published: ${PORT}
     command:
       - python3.11
       - -m
@@ -56,20 +58,20 @@ services:
     networks:
       web-service:  # For accessing PostgreSQL and Redis
 
-  mulab-celery-beat:
-    container_name: mulab-celery-beat
-    extends:
-      file: ./include/application_image.yaml
-      service: snowfall-image
-    env_file:
-      - ../build/dotenv/mudev_backend.env
-    command:
-      - python3.11
-      - -m
-      - app.celery_task
-      - beat
-    networks:
-      web-service:  # For accessing PostgreSQL and Redis
+  # mulab-celery-beat:
+  #   container_name: mulab-celery-beat
+  #   extends:
+  #     file: ./include/application_image.yaml
+  #     service: snowfall-image
+  #   env_file:
+  #     - ../build/dotenv/mudev_backend.env
+  #   command:
+  #     - python3.11
+  #     - -m
+  #     - app.celery_task
+  #     - beat
+  #   networks:
+  #     web-service:  # For accessing PostgreSQL and Redis
 
   mulab-celery-flower:
     container_name: mulab-celery-flower
