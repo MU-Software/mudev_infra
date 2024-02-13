@@ -7,7 +7,7 @@ services:
     platform: linux/arm64
     restart: unless-stopped
     volumes:
-      - /Volumes/storageB:/user_content
+      - /Volumes/storageB/user_content:/user_content
       - /var/run/docker.sock:/var/run/docker.sock
     working_dir: /
     depends_on:
