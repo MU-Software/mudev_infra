@@ -49,6 +49,7 @@ docker-stack-images:
 
 docker-stack-deploy:
 	@docker compose -f ./docker/all.yaml --env-file ./build/dotenv/docker_compose.env config \
+	| sed -e '/published:/ s/"//g' \
 	| docker stack deploy --with-registry-auth --compose-file - mulab
 
 docker-stack-ps:
