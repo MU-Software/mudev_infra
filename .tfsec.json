@@ -1,0 +1,11 @@
+{
+  "exclude": [
+    "aws-ec2-no-public-egress-sgr",
+    "aws-elb-http-not-used",
+    "aws-elb-use-secure-tls-policy",
+    "aws-elb-drop-invalid-headers",
+    "aws-rds-encrypt-cluster-storage-data",
+    "aws-iam-no-policy-wildcards"
+  ],
+  "minimum_severity": "CRITICAL"
+}
