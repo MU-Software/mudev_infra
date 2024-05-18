@@ -88,3 +88,7 @@ resource "aws_instance" "mudev-ubuntu" {
   timeouts {}
   tags = { Terraform = "true" }
 }
+
+output "mudev-ubuntu-public-ip" {
+  value = aws_instance.mudev-ubuntu.public_ip
+}
