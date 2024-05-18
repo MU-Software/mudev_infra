@@ -89,6 +89,6 @@ resource "aws_instance" "mudev-ubuntu" {
   tags = { Terraform = "true" }
 }
 
-output "mudev-ubuntu-public-ip" {
+output "mudev_ubuntu_public_ip" {
   value = aws_instance.mudev-ubuntu.public_ip
 }

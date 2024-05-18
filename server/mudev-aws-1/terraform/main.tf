@@ -37,3 +37,7 @@ module "resources" {
   default_availability_zone = var.aws_default_availability_zone
   default_db_username       = var.default_db_username
 }
+
+output "mudev_ubuntu_public_ip" {
+  value = module.resources.mudev_ubuntu_public_ip
+}

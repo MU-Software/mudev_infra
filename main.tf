@@ -33,3 +33,7 @@ module "mudev_aws_1" {
 
   default_db_username = var.default_db_username
 }
+
+output "mudev_ubuntu_public_ip" {
+  value = module.mudev_aws_1.mudev_ubuntu_public_ip
+}
