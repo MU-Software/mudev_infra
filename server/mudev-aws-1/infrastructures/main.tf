@@ -38,6 +38,6 @@ module "resources" {
   default_db_username       = var.default_db_username
 }
 
-output "mudev_ubuntu_public_ip" {
-  value = module.resources.mudev_ubuntu_public_ip
+output "mudev_aws_1_public_ip" {
+  value = module.resources.mudev_aws_1_public_ip
 }

@@ -12,6 +12,8 @@ variable "idp_client_id" { type = string }
 
 variable "default_db_username" { type = string }
 
+variable "vultr_api_key" { type = string }
+
 module "cloudflare" {
   source = "./server/cloudflare"
 }
@@ -38,6 +40,12 @@ module "mudev_aws_1" {
   default_db_username = var.default_db_username
 }
 
-output "mudev_ubuntu_public_ip" {
-  value = module.mudev_aws_1.mudev_ubuntu_public_ip
+module "mudev_vultr_1" {
+  source = "./server/mudev-vultr-1/infrastructures"
+
+  vultr_api_key = var.vultr_api_key
+}
+
+output "mudev_aws_1_public_ip" {
+  value = module.mudev_aws_1.mudev_aws_1_public_ip
 }
