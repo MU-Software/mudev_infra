@@ -49,3 +49,7 @@ module "mudev_vultr_1" {
 output "mudev_aws_1_public_ip" {
   value = module.mudev_aws_1.mudev_aws_1_public_ip
 }
+
+output "mudev_vultr_1_public_ip" {
+  value = module.mudev_vultr_1.mudev_vultr_1_public_ip
+}
