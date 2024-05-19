@@ -7,12 +7,11 @@ variable "tfc_organization_name" { type = string }
 variable "tfc_project_name" { type = string }
 variable "tfc_workspace_name" { type = string }
 
-variable "idp_run_role_arn" { type = string }
-variable "idp_client_id" { type = string }
+variable "vultr_api_key" { type = string }
+variable "aws_idp_run_role_arn" { type = string }
+variable "aws_idp_client_id" { type = string }
 
 variable "default_db_username" { type = string }
-
-variable "vultr_api_key" { type = string }
 
 module "cloudflare" {
   source = "./server/cloudflare"
@@ -34,8 +33,8 @@ module "mudev_aws_1" {
   tfc_project_name      = var.tfc_project_name
   tfc_workspace_name    = var.tfc_workspace_name
 
-  idp_run_role_arn = var.idp_run_role_arn
-  idp_client_id    = var.idp_client_id
+  aws_idp_run_role_arn = var.aws_idp_run_role_arn
+  aws_idp_client_id    = var.aws_idp_client_id
 
   default_db_username = var.default_db_username
 }

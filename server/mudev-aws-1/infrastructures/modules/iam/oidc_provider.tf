@@ -4,14 +4,14 @@ data "aws_iam_policy_document" "iam_policy_doc_terraform_cloud" {
     effect  = "Allow"
 
     principals {
-      identifiers = [var.idp_run_role_arn]
+      identifiers = [var.aws_idp_run_role_arn]
       type        = "Federated"
     }
 
     condition {
       test     = "StringEquals"
       variable = "app.terraform.io:aud"
-      values   = [var.idp_client_id]
+      values   = [var.aws_idp_client_id]
     }
 
     condition {
@@ -32,7 +32,7 @@ resource "aws_iam_role" "iam_role_terraform_cloud" {
 
 resource "aws_iam_openid_connect_provider" "terraform" {
   url             = "https://app.terraform.io"
-  client_id_list  = [var.idp_client_id]
+  client_id_list  = [var.aws_idp_client_id]
   thumbprint_list = ["9e99a48a9960b14926bb7f3b02e22da2b0ab7280"]
   tags            = { Terraform = "true" }
 }

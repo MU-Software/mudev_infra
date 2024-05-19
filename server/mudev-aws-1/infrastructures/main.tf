@@ -24,8 +24,8 @@ module "iam" {
   tfc_project_name      = var.tfc_project_name
   tfc_workspace_name    = var.tfc_workspace_name
 
-  idp_run_role_arn = var.idp_run_role_arn
-  idp_client_id    = var.idp_client_id
+  aws_idp_run_role_arn = var.aws_idp_run_role_arn
+  aws_idp_client_id    = var.aws_idp_client_id
 }
 
 module "resources" {
