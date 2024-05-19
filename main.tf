@@ -13,7 +13,7 @@ variable "idp_client_id" { type = string }
 variable "default_db_username" { type = string }
 
 module "mudev_aws_1" {
-  source = "./server/mudev-aws-1/terraform"
+  source = "./server/mudev-aws-1/infrastructures"
 
   aws_region = "ap-northeast-2"
   aws_regions = [
