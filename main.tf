@@ -12,6 +12,10 @@ variable "idp_client_id" { type = string }
 
 variable "default_db_username" { type = string }
 
+module "cloudflare" {
+  source = "./server/cloudflare"
+}
+
 module "mudev_aws_1" {
   source = "./server/mudev-aws-1/infrastructures"
 
