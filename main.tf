@@ -1,5 +1,5 @@
 terraform {
-  required_version = "1.8.3"
+  required_version = "1.8.4"
   cloud {}
 }
 
@@ -8,6 +8,8 @@ variable "tfc_project_name" { type = string }
 variable "tfc_workspace_name" { type = string }
 
 variable "vultr_api_key" { type = string }
+variable "cloudflare_account_id" { type = string }
+variable "cloudflare_email_address" { type = string }
 variable "aws_idp_run_role_arn" { type = string }
 variable "aws_idp_client_id" { type = string }
 
@@ -15,6 +17,11 @@ variable "default_db_username" { type = string }
 
 module "cloudflare" {
   source = "./server/cloudflare"
+
+  cloudflare_account_id       = var.cloudflare_account_id
+  cloudflare_email_address    = var.cloudflare_email_address
+  mudev_aws_1_instance_ipv4   = module.mudev_aws_1.mudev_aws_1_public_ip
+  mudev_vultr_1_instance_ipv4 = module.mudev_vultr_1.mudev_vultr_1_public_ip
 }
 
 module "mudev_aws_1" {
