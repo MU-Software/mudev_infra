@@ -4,7 +4,7 @@ resource "cloudflare_record" "mudev_cc_record_cname_all" {
   proxied = true
   ttl     = 1
   type    = "CNAME"
-  value   = "mudev.cc"
+  content = "mudev.cc"
   zone_id = var.cloudflare_zone_id
 }
 
@@ -13,7 +13,7 @@ resource "cloudflare_record" "mudev_cc_record_cname_www" {
   proxied = true
   ttl     = 1
   type    = "CNAME"
-  value   = "mudev.cc"
+  content = "mudev.cc"
   zone_id = var.cloudflare_zone_id
 }
 
@@ -22,6 +22,6 @@ resource "cloudflare_record" "mudev_cc_record_cname_pages" {
   proxied = true
   ttl     = 1
   type    = "CNAME"
-  value   = "mudev.pages.dev"
+  content = "mudev.pages.dev"
   zone_id = var.cloudflare_zone_id
 }

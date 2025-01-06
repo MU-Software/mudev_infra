@@ -77,4 +77,7 @@ repos:
         args:
           - --args=-diff
       - id: terraform_validate
+        args:
+          - --tf-init-args=-upgrade
+          - --hook-config=--retry-once-with-cleanup=true
       - id: tfupdate

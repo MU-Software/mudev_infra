@@ -3,7 +3,7 @@ resource "cloudflare_record" "protoco_cc_record_cname_all" {
   proxied = true
   ttl     = 1
   type    = "CNAME"
-  value   = "protoco.cc"
+  content = "protoco.cc"
   zone_id = var.cloudflare_zone_id
 }
 
@@ -12,6 +12,6 @@ resource "cloudflare_record" "protoco_cc_record_cname_pages" {
   proxied = true
   ttl     = 1
   type    = "CNAME"
-  value   = "protoco.pages.dev"
+  content = "protoco.pages.dev"
   zone_id = var.cloudflare_zone_id
 }

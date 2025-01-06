@@ -5,7 +5,7 @@ resource "cloudflare_record" "mudev_cc_record_mx_mail_1" {
   proxied  = false
   ttl      = 1
   type     = "MX"
-  value    = "aspmx.l.google.com"
+  content  = "aspmx.l.google.com"
   zone_id  = var.cloudflare_zone_id
 }
 
@@ -15,7 +15,7 @@ resource "cloudflare_record" "mudev_cc_record_mx_mail_2" {
   proxied  = false
   ttl      = 1
   type     = "MX"
-  value    = "alt1.aspmx.l.google.com"
+  content  = "alt1.aspmx.l.google.com"
   zone_id  = var.cloudflare_zone_id
 }
 
@@ -25,7 +25,7 @@ resource "cloudflare_record" "mudev_cc_record_mx_mail_3" {
   proxied  = false
   ttl      = 1
   type     = "MX"
-  value    = "alt2.aspmx.l.google.com"
+  content  = "alt2.aspmx.l.google.com"
   zone_id  = var.cloudflare_zone_id
 }
 
@@ -35,7 +35,7 @@ resource "cloudflare_record" "mudev_cc_record_mx_mail_4" {
   proxied  = false
   ttl      = 1
   type     = "MX"
-  value    = "aspmx2.googlemail.com"
+  content  = "aspmx2.googlemail.com"
   zone_id  = var.cloudflare_zone_id
 }
 
@@ -45,7 +45,7 @@ resource "cloudflare_record" "mudev_cc_record_mx_mail_5" {
   proxied  = false
   ttl      = 1
   type     = "MX"
-  value    = "aspmx3.googlemail.com"
+  content  = "aspmx3.googlemail.com"
   zone_id  = var.cloudflare_zone_id
 }
 
@@ -54,7 +54,7 @@ resource "cloudflare_record" "mudev_cc_record_txt_mail_spf" {
   proxied = false
   ttl     = 1
   type    = "TXT"
-  value   = "v=spf1 include:_spf.google.com ~all"
+  content = "v=spf1 include:_spf.google.com ~all"
   zone_id = var.cloudflare_zone_id
 }
 
@@ -63,7 +63,7 @@ resource "cloudflare_record" "mudev_cc_record_txt_google_site_verification" {
   proxied = false
   ttl     = 1
   type    = "TXT"
-  value   = "google-site-verification=onZQrlwBtM4fB1ZOdniypopXLUEpYBD6lG8TD_MeJ9s"
+  content = "google-site-verification=onZQrlwBtM4fB1ZOdniypopXLUEpYBD6lG8TD_MeJ9s"
   zone_id = var.cloudflare_zone_id
 }
 
@@ -72,6 +72,6 @@ resource "cloudflare_record" "mudev_cc_record_txt_google_dkim" {
   proxied = false
   ttl     = 1
   type    = "TXT"
-  value   = "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAg7XSOfwpPnHyMtTCrxypLt7ds7hvGwxDtVQO901nbsEVeHhr0UnJz4zjaJGKUeKly4NvZ9bYjMkyXO3xnRal/AdxbLF/ISC0IM3b8T4dNVO5o1w1ASkNPIEmhYVeOjVDdOkkHDfEJ/QQ8ZNWXG/M/RspFvuEiUu7A8hkQZoCzs/MK2lONqnNj+GhsgYfpKXpxBBR6kKVixCeg8H46yvmCw7FMH3zMnXlIYJPtca9U74tvly024jMscmV4tkZhkdjYiO63xqqgIpyqQ+nDC4SvLHB/EJlzb0zSnEfeWDeAawJWzWOYZ0mXpfw22Uwemum4uSOaow8DQF06cteJ/kp8QIDAQAB"
+  content = "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAg7XSOfwpPnHyMtTCrxypLt7ds7hvGwxDtVQO901nbsEVeHhr0UnJz4zjaJGKUeKly4NvZ9bYjMkyXO3xnRal/AdxbLF/ISC0IM3b8T4dNVO5o1w1ASkNPIEmhYVeOjVDdOkkHDfEJ/QQ8ZNWXG/M/RspFvuEiUu7A8hkQZoCzs/MK2lONqnNj+GhsgYfpKXpxBBR6kKVixCeg8H46yvmCw7FMH3zMnXlIYJPtca9U74tvly024jMscmV4tkZhkdjYiO63xqqgIpyqQ+nDC4SvLHB/EJlzb0zSnEfeWDeAawJWzWOYZ0mXpfw22Uwemum4uSOaow8DQF06cteJ/kp8QIDAQAB"
   zone_id = var.cloudflare_zone_id
 }
