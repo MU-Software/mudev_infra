@@ -22,7 +22,7 @@ resource "vultr_instance" "mudev_vultr_ubuntu_1" {
   os_id           = 365
   backups         = "disabled"
   ddos_protection = false
-  tags            = ["Terraform"]
+  tags            = ["Game & Database", "Terraform"]
 }
 
 output "mudev_vultr_1_public_ip" {
