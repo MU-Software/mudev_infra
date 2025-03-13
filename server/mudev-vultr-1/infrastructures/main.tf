@@ -32,7 +32,7 @@ output "mudev_vultr_1_public_ip" {
 resource "vultr_instance" "mudev_vultr_ubuntu_2" {
   region          = "nrt"
   plan            = "vhp-1c-1gb"
-  os_id           = 1282
+  os_id           = 2284
   backups         = "disabled"
   ddos_protection = false
   tags            = ["Terraform", "VPN"]
