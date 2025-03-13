@@ -46,7 +46,7 @@ resource "aws_db_instance" "mudev-postgres" {
   deletion_protection                   = true
   delete_automated_backups              = false
   engine                                = "postgres"
-  engine_version                        = "16.3"
+  engine_version                        = "16.4"
   iam_database_authentication_enabled   = true
   instance_class                        = "db.t3.micro"
   iops                                  = 0
