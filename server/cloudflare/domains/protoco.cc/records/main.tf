@@ -11,5 +11,4 @@ terraform {
 }
 
 variable "cloudflare_zone_id" { type = string }
-variable "mudev_aws_1_instance_ipv4" { type = string }
 variable "mudev_vultr_1_instance_ipv4" { type = string }

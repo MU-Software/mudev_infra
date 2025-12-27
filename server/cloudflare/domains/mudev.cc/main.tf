@@ -11,14 +11,12 @@ terraform {
 }
 
 variable "cloudflare_account_id" { type = string }
-variable "mudev_aws_1_instance_ipv4" { type = string }
 variable "mudev_vultr_1_instance_ipv4" { type = string }
 
 module "records" {
   source = "./records"
 
   cloudflare_zone_id          = cloudflare_zone.mudev_cc.id
-  mudev_aws_1_instance_ipv4   = var.mudev_aws_1_instance_ipv4
   mudev_vultr_1_instance_ipv4 = var.mudev_vultr_1_instance_ipv4
 }
 

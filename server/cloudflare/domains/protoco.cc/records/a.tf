@@ -3,7 +3,7 @@ resource "cloudflare_record" "protoco_cc_record_api" {
   proxied = true
   ttl     = 1
   type    = "A"
-  content = var.mudev_aws_1_instance_ipv4
+  content = "0.0.0.0"
   zone_id = var.cloudflare_zone_id
 }
 
